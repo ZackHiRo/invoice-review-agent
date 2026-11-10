@@ -124,9 +124,11 @@ class Ledger:
             " VALUES (?,?,?,?,?,?,?,?,?,?)"
             " ON CONFLICT(thread_id) DO UPDATE SET status=excluded.status,"
             " decided_by=excluded.decided_by",
-            (thread_id, vendor_id or "UNKNOWN", invoice.get("invoice_number", ""),
+            (thread_id, vendor_id or "UNKNOWN", invoice.get("invoice_number") or "",
              normalize_id(invoice.get("invoice_number")), invoice.get("invoice_date"),
-             invoice.get("currency"), invoice.get("total"), status, decided_by, _now()),
+             invoice.get("currency"),
+             invoice["total"] if "total" in invoice else invoice.get("net_amount_due"),
+             status, decided_by, _now()),
         )
         self.conn.commit()
 

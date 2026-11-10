@@ -78,7 +78,8 @@ def check_fields(inv: InvoiceData) -> list[Issue]:
 
 
 def value_variants(field_name: str, value) -> set[str]:
-    if field_name in ("subtotal", "tax_total", "total", "amount"):
+    numeric = isinstance(value, int | float) and not isinstance(value, bool)
+    if field_name in ("subtotal", "tax_total", "total", "amount") or numeric:
         return amount_variants(float(value))
     if field_name in ("invoice_date", "due_date"):
         return date_variants(value) if _parse_date(value) else {str(value)}

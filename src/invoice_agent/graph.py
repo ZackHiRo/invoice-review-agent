@@ -21,15 +21,13 @@ from langgraph.graph import END, START, StateGraph
 from langgraph.runtime import Runtime
 from langgraph.types import Command, RetryPolicy, interrupt
 
-from invoice_agent.checks import run_checks
 from invoice_agent.extract import Extractor
 from invoice_agent.pdf import pdf_to_text
-from invoice_agent.schemas import InvoiceData, Issue, IssueKind, ReviewDecision, Severity
-from invoice_agent.snap import keep_dropped_values, snap_iban
+from invoice_agent.profiles import AP_INVOICE, Profile
+from invoice_agent.schemas import Issue, IssueKind, ReviewDecision, Severity
 from invoice_agent.store import Ledger, VendorDirectory
 
 REPAIRABLE = {IssueKind.EXTRACTION, IssueKind.CONSISTENCY}
-NUMERIC_FIELDS = {"subtotal", "tax_total", "total"}
 
 
 class InvoiceState(TypedDict, total=False):
@@ -56,6 +54,7 @@ class Deps:
     buyer_vat_id: str | None = None
     max_attempts: int = 2   # 1 = no repair loop (used as an ablation in the eval)
     extras: dict[str, Any] = field(default_factory=dict)
+    profile: Profile = AP_INVOICE   # what to extract and how to check it
 
 
 def _issues(state: InvoiceState) -> list[Issue]:
@@ -73,18 +72,14 @@ def load(state: InvoiceState) -> dict:
 
 
 def extract(state: InvoiceState, runtime: Runtime[Deps]) -> dict:
+    profile = runtime.context.profile
     attempt = state.get("attempts", 0) + 1
-    previous = InvoiceData(**state["invoice"]) if state.get("invoice") else None
+    previous = profile.schema(**state["invoice"]) if state.get("invoice") else None
     res = runtime.context.extractor.extract(
         state["text"], previous=previous, issues=_issues(state) if previous else None)
-    invoice, snapped = snap_iban(res.invoice, state["text"])
-    invoice, restored = keep_dropped_values(invoice, previous, state["text"])
+    invoice, extras = profile.postprocess(res.invoice, previous, state["text"])
     event = {"node": "extract", "attempt": attempt,
-             "mode": "repair" if previous else "first_read"}
-    if snapped:
-        event["snapped"] = snapped
-    if restored:
-        event["restored_after_repair"] = restored
+             "mode": "repair" if previous else "first_read"} | extras
     return {
         "invoice": invoice.model_dump(),
         "attempts": attempt,
@@ -95,8 +90,9 @@ def extract(state: InvoiceState, runtime: Runtime[Deps]) -> dict:
 
 def validate(state: InvoiceState, runtime: Runtime[Deps]) -> dict:
     deps = runtime.context
-    result = run_checks(InvoiceData(**state["invoice"]), state["text"], deps.vendors,
-                        deps.ledger, deps.buyer_vat_id, state.get("thread_id"))
+    profile = deps.profile
+    result = profile.check(profile.schema(**state["invoice"]), state["text"], deps,
+                           state.get("thread_id"))
     errors = result.errors
     repairable = [i for i in errors if i.kind in REPAIRABLE]
     if repairable and state.get("attempts", 0) < deps.max_attempts \
@@ -144,12 +140,14 @@ def human_review(state: InvoiceState, runtime: Runtime[Deps]
     if decision.action == "reject":
         return Command(goto="reject", update={"decision": decision.model_dump(),
                                               "trail": [event]})
+    profile = runtime.context.profile
     invoice = dict(state["invoice"])
     for key, value in decision.corrections.items():
-        if key not in InvoiceData.model_fields or key in ("line_items", "tax_lines"):
+        if key not in profile.schema.model_fields or key in profile.locked_fields:
             raise ValueError(f"cannot correct field {key!r}")
-        invoice[key] = float(value) if key in NUMERIC_FIELDS and value is not None else value
-    InvoiceData(**invoice)  # validate the corrected record
+        numeric = key in profile.numeric_fields and value not in (None, "")
+        invoice[key] = float(value) if numeric else value
+    profile.schema(**invoice)  # validate the corrected record
     return Command(goto="validate", update={
         "invoice": invoice, "human_corrected": True, "decision": decision.model_dump(),
         "trail": [event | {"corrections": decision.corrections}]})

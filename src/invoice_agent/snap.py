@@ -55,13 +55,13 @@ def snap_iban(inv: InvoiceData, text: str) -> tuple[InvoiceData, dict | None]:
     return inv.model_copy(update={"iban": best}), {"field": "iban", "from": inv.iban, "to": best}
 
 
-def keep_dropped_values(new: InvoiceData, previous: InvoiceData | None, text: str
-                        ) -> tuple[InvoiceData, list[str]]:
+def keep_dropped_values(new, previous, text: str, fields: tuple[str, ...] = KEEP_IF_DROPPED
+                        ) -> tuple:
     """A repair pass must not 'fix' an inconsistency by deleting a printed value."""
     if previous is None:
         return new, []
     restored, update = [], {}
-    for f in KEEP_IF_DROPPED:
+    for f in fields:
         old_v, new_v = getattr(previous, f), getattr(new, f)
         if old_v and not new_v and is_grounded(f, old_v, text):
             update[f] = old_v

@@ -59,9 +59,9 @@ class Extractor(Protocol):
                 issues: list[Issue] | None = None) -> ExtractionResult: ...
 
 
-def build_messages(text: str, previous: InvoiceData | None, issues: list[Issue] | None,
-                   buyer: dict | None = None):
-    messages = [SystemMessage(extraction_rules(buyer)),
+def build_messages(text: str, previous, issues: list[Issue] | None,
+                   buyer: dict | None = None, rules: str | None = None):
+    messages = [SystemMessage(rules or extraction_rules(buyer)),
                 HumanMessage(f"<document>\n{text}\n</document>")]
     if previous is not None:
         problems = "\n".join(f"- [{i.code.value}] {i.message}" for i in issues or [])
@@ -80,18 +80,20 @@ def usage_of(raw_message, model: str) -> dict:
 
 class LLMExtractor:
     def __init__(self, model: str = "gpt-4.1-mini", buyer: dict | None = None,
-                 timeout: float = 90):
+                 timeout: float = 90, schema: type = InvoiceData, rules: str | None = None):
         from langchain_openai import ChatOpenAI
 
         self.model = model
         self.buyer = buyer
+        self.rules = rules
         llm = ChatOpenAI(model=model, temperature=0, timeout=timeout, max_retries=3)
         self.runnable = llm.with_structured_output(
-            InvoiceData, method="json_schema", strict=True, include_raw=True)
+            schema, method="json_schema", strict=True, include_raw=True)
 
     def extract(self, text: str, previous: InvoiceData | None = None,
                 issues: list[Issue] | None = None) -> ExtractionResult:
-        out = self.runnable.invoke(build_messages(text, previous, issues, self.buyer))
+        out = self.runnable.invoke(build_messages(text, previous, issues, self.buyer,
+                                                  self.rules))
         if out.get("parsing_error") or out.get("parsed") is None:
             raise ValueError(f"structured output failed: {out.get('parsing_error')}")
         return ExtractionResult(invoice=out["parsed"], usage=usage_of(out["raw"], self.model))

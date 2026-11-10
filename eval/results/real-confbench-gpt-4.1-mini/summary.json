@@ -1,0 +1,56 @@
+{
+  "n_scored": 40,
+  "run_errors": 0,
+  "field_accuracy": {
+    "single_call": {
+      "agency": 0.7,
+      "advertiser": 0.825,
+      "gross_total": 0.95,
+      "agency_commission": 0.925,
+      "net_amount_due": 0.875,
+      "payment_terms": 0.925
+    },
+    "agent": {
+      "agency": 0.7,
+      "advertiser": 0.825,
+      "gross_total": 0.95,
+      "agency_commission": 0.925,
+      "net_amount_due": 0.875,
+      "payment_terms": 0.925
+    }
+  },
+  "amounts_all_correct": {
+    "single_call": 0.8,
+    "agent": 0.825
+  },
+  "agent_routing": {
+    "caught": 3,
+    "false_alarm": 3,
+    "silent_error": 4,
+    "clean_auto": 30
+  },
+  "review_rate": 0.15,
+  "error_detection_recall": 0.42857142857142855,
+  "error_detection_recall_ci95": [
+    0.15821692226262685,
+    0.7495457695909742
+  ],
+  "silent_errors": {
+    "single_call": 8,
+    "agent": 4
+  },
+  "repairs": 7,
+  "tokens_in": 256030,
+  "tokens_out": 3963,
+  "cost_usd": 0.1087528,
+  "model": "gpt-4.1-mini",
+  "n_documents": 75,
+  "n_digital": 40,
+  "n_scanned_excluded": 35,
+  "started_at": "2026-11-10T16:30:24+00:00",
+  "finished_at": "2026-11-10T16:31:00+00:00",
+  "price_per_1m_tokens_usd": {
+    "input": 0.4,
+    "output": 1.6
+  }
+}

@@ -98,6 +98,7 @@ class IssueCode(StrEnum):
     BANK_ACCOUNT_CHANGED = "bank_account_changed"
     DUPLICATE_INVOICE = "duplicate_invoice"
     CURRENCY_MISMATCH = "currency_mismatch"
+    UNUSUAL_COMMISSION = "unusual_commission"
 
 
 class Issue(BaseModel):

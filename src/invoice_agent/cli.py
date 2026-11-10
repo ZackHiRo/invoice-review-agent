@@ -196,6 +196,28 @@ def eval_(split: str = "test", model: str | None = None, out: Path | None = None
     console.print((out / "report.md").read_text())
 
 
+@app.command("fetch-confbench")
+def fetch_confbench(out: Path = Path("data/real/confbench")) -> None:
+    """Download the 75 ConfBench FCC invoice originals + labels (CC BY-NC 4.0, git-ignored)."""
+    from invoice_agent.real.confbench import fetch
+    console.print(fetch(out))
+
+
+@app.command("eval-real")
+def eval_real(root: Path = Path("data/real/confbench"), out: Path | None = None,
+              limit: int | None = None, workers: int = 6) -> None:
+    """Score extraction and the checks on real ConfBench invoices (digital PDFs only)."""
+    from invoice_agent.real.evaluate import run_real_eval
+    settings = load_settings()
+    require_api_key()
+    if not (root / "labels.jsonl").exists():
+        raise typer.BadParameter(f"{root} has no labels.jsonl: run `invoice-agent "
+                                 "fetch-confbench` first")
+    out = out or Path("eval/results") / f"real-confbench-{settings.model}"
+    run_real_eval(settings, root, out, limit=limit, workers=workers)
+    console.print((out / "report.md").read_text())
+
+
 @app.command()
 def graph() -> None:
     """Print the graph as Mermaid."""

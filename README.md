@@ -133,6 +133,28 @@ Agent routing on dev went from 87.5% to 100% after these changes: IBAN snapping,
 
 Next step, **not evaluated yet**: skip the re-read when every number involved is grounded. If all printed values are in the document and they still don't add up, the document is wrong, not the read. That would remove all 32 wasted calls on the test set and the `test-050` regression.
 
+### Real invoices: ConfBench (40 digital FCC invoices)
+
+The synthetic set can't tell you how the agent behaves on documents nobody designed for it. So the same graph also runs on [Amazon ConfBench](https://huggingface.co/datasets/amazon/ConfBench): US TV and cable stations' invoices for political ads, public records filed with the FCC, with human-verified labels (CC BY-NC 4.0, downloaded by `invoice-agent fetch-confbench`, not redistributed here).
+
+These invoices have no VAT or IBAN, so they get their own **profile**: same graph, a different schema (gross airtime, agency commission, other deductions, net due) and checks (every amount must appear in the text; gross − commission − deductions = net). Before spending anything, I found that **35 of the 75 "originals" are scans with no text layer**. This agent has no OCR, so they are excluded and 40 are scored.
+
+| 40 digital invoices, `gpt-4.1-mini` | Single call (no checks) | Agent |
+|---|---|---|
+| Gross, commission and net all match the label | 80.0% | 82.5% |
+| Sent to a human | 0% (auto-approves everything) | 15.0% (6 invoices) |
+| Auto-approved with an amount that disagrees with the label | 8 | 4 |
+
+Cost of the run: $0.11. Full report: [`report.md`](eval/results/real-confbench-gpt-4.1-mini/report.md).
+
+Scoring against labels isn't the whole story here: the labels have their own errors. So I read the document text for every flagged invoice and every auto-approved disagreement ([`ADJUDICATION.md`](eval/results/real-confbench-gpt-4.1-mini/ADJUDICATION.md)):
+
+- **The 4 auto-approved "errors" are not misreads.** One is a label rounding a printed $37,972.90 to $37,973. Two are invoices the labels give no net amount for, where the agent used the printed total. One is a $0 invoice.
+- **4 of the 6 flagged invoices had a real extraction problem**, including an invoice number the model garbled from run-together PDF text, and another case of the repair pass *calculating* a commission that isn't printed to make the numbers add up (caught by the grounding check, as on the synthetic set). The other 2 are documents a person should check anyway: one prints no totals, one deducts $15,750 without saying what for.
+- **Names are the weak spot.** Agency matches the label on 70% of invoices, but in 9 of the 12 misses the label names the station that issued the invoice as the "agency". Advertiser: 82.5%, with 2 real misses.
+
+Small sample, one run, adjudicated by hand: treat these as a sanity check that the approach transfers to real documents, not as a benchmark score.
+
 ## Run it
 
 Requires Python 3.11+ and an OpenAI API key (only for processing new invoices and for the eval; tests need no key).
@@ -165,7 +187,7 @@ Review console (queue, PDF side by side with the extraction, approve / reject / 
 .venv/bin/streamlit run src/invoice_agent/ui.py
 ```
 
-Tests (35 tests, no API key needed: the real graph runs with a scripted extractor):
+Tests (42 tests, no API key needed: the real graph runs with a scripted extractor):
 
 ```bash
 .venv/bin/pytest -q
@@ -175,6 +197,14 @@ Reproduce the eval (about $0.60 on `gpt-4.1-mini`, 2 minutes):
 
 ```bash
 .venv/bin/invoice-agent eval --split test
+```
+
+Real invoices (downloads about 21 MB from Hugging Face, then about $0.11):
+
+```bash
+.venv/bin/pip install -e ".[real]"
+.venv/bin/invoice-agent fetch-confbench
+.venv/bin/invoice-agent eval-real
 ```
 
 Docker:
@@ -191,6 +221,7 @@ Other: `invoice-agent graph` prints the compiled graph as Mermaid. `invoice-agen
 ```
 src/invoice_agent/
   graph.py        LangGraph StateGraph: nodes, routing, interrupt, Command
+  profiles.py     document profiles (schema + checks) the graph runs with
   extract.py      LLM extractor (strict structured output) and repair prompt
   checks.py       deterministic checks (grounding, arithmetic, IBAN, vendor, ledger)
   snap.py         IBAN snapping + "repair may not delete printed values" guard
@@ -199,6 +230,7 @@ src/invoice_agent/
   cli.py, ui.py   Typer CLI and Streamlit review console
   synth/          seeded invoice generator (reportlab)
   evaluation/     runner, metrics (field accuracy, routing, Wilson CI, McNemar)
+  real/           ConfBench downloader, broadcast-invoice profile, real-invoice eval
 data/             generated PDFs, labels.jsonl, vendors.json, ledger_seed.json
 eval/results/     summary.json, report.md and every prediction per run
 tests/            checks, graph (HITL, durability, idempotency), CLI, UI, metrics
@@ -206,7 +238,8 @@ tests/            checks, graph (HITL, durability, idempotency), CLI, UI, metric
 
 ## Limitations
 
-- **Synthetic data, made by the same person who wrote the checks.** The anomaly types and the checks were designed together, and the oracle test proves the checks are complete *for these eight types*. Real invoices have anomalies no rule here anticipates (wrong PO, price above contract, VAT rate wrong for the goods), plus OCR noise from scans. All PDFs here are digital; there is no OCR path.
+- **Synthetic data, made by the same person who wrote the checks.** The anomaly types and the checks were designed together, and the oracle test proves the checks are complete *for these eight types*. Real invoices have anomalies no rule here anticipates (wrong PO, price above contract, VAT rate wrong for the goods). The ConfBench check covers real documents, but only 40 of them, with no injected anomalies, and a different invoice type.
+- **No OCR.** The agent reads the PDF's text layer. 35 of the 75 real ConfBench invoices are scans, and it can't read them at all.
 - **One model, one run.** Only `gpt-4.1-mini` at temperature 0, one pass over the test set. I also started a `gpt-4o-mini` run to see whether the repair loop helps a weaker model, but the API account ran out of credits partway through. I deleted those partial results instead of reporting them.
 - **The baseline could be stronger.** Its schema puts `reason` *after* `flags`, so it commits to flags before explaining them (visible in its self-contradicting reasons). A reason-first schema, a reasoning model, or giving the baseline a calculator tool would likely close part of the gap. This compares two reasonable designs, not the best possible single prompt.
 - **Small per-type counts:** 7–8 test documents per anomaly type, so per-type rates have wide intervals. The headline intervals are in the report.
