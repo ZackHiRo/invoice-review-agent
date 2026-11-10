@@ -1,0 +1,17 @@
+services:
+  ui:
+    build: .
+    entrypoint: ["streamlit", "run", "src/invoice_agent/ui.py",
+                 "--server.address=0.0.0.0", "--server.port=8501"]
+    env_file: .env
+    ports: ["8501:8501"]
+    volumes: ["state:/app/.state"]
+
+  cli:
+    build: .
+    env_file: .env
+    volumes: ["state:/app/.state", "./eval/results:/app/eval/results"]
+    profiles: ["cli"]
+
+volumes:
+  state:

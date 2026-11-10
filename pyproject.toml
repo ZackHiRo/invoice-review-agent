@@ -1,0 +1,46 @@
+[build-system]
+requires = ["hatchling>=1.25"]
+build-backend = "hatchling.build"
+
+[project]
+name = "invoice-review-agent"
+version = "0.1.0"
+description = "A LangGraph accounts-payable agent: extract invoices into typed data, check them with deterministic rules, repair its own extraction errors and pause for a human when something is wrong."
+readme = "README.md"
+requires-python = ">=3.11"
+license = { text = "MIT" }
+authors = [{ name = "Zakaria Aoun" }]
+dependencies = [
+  "langgraph>=1.2.12",
+  "langgraph-checkpoint-sqlite>=3.1",
+  "langchain-core>=1.7",
+  "langchain-openai>=1.7",
+  "pydantic>=2.7",
+  "pypdf>=5.0",
+  "python-dotenv>=1.0",
+  "rich>=13.7",
+  "typer>=0.12",
+]
+
+[project.optional-dependencies]
+synth = ["reportlab>=4.2"]
+ui = ["streamlit>=1.40"]
+dev = ["pytest>=8.0", "reportlab>=4.2", "ruff>=0.6"]
+
+[project.scripts]
+invoice-agent = "invoice_agent.cli:app"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/invoice_agent"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["src", "."]
+
+[tool.ruff]
+line-length = 100
+target-version = "py311"
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "B", "UP"]
+ignore = ["B008", "B905"]  # typer option defaults; zip() lengths are checked explicitly

@@ -1,0 +1,308 @@
+{
+  "split": "dev",
+  "n_docs": 40,
+  "model": "gpt-4.1-mini",
+  "price_per_1m_tokens_usd": {
+    "input": 0.4,
+    "output": 1.6
+  },
+  "started_at": "2026-11-09T22:32:15+00:00",
+  "finished_at": "2026-11-09T22:32:44+00:00",
+  "systems": {
+    "baseline": {
+      "system": "baseline",
+      "n_docs": 40,
+      "run_errors": 0,
+      "field_accuracy": {
+        "document_type": 1.0,
+        "invoice_number": 1.0,
+        "invoice_date": 0.975,
+        "due_date": 1.0,
+        "currency": 1.0,
+        "seller_name": 1.0,
+        "seller_vat_id": 1.0,
+        "buyer_name": 1.0,
+        "po_number": 1.0,
+        "iban": 0.95,
+        "subtotal": 1.0,
+        "tax_total": 1.0,
+        "total": 1.0,
+        "line_items": 1.0,
+        "tax_lines": 1.0
+      },
+      "doc_exact_match": 0.925,
+      "doc_exact_match_ci95": [
+        0.8013546984090248,
+        0.9741644432281419
+      ],
+      "routing_accuracy": 0.7,
+      "routing_accuracy_ci95": [
+        0.545696893456796,
+        0.8192532908430471
+      ],
+      "anomaly_recall": 0.4375,
+      "anomaly_recall_ci95": [
+        0.2309836333518552,
+        0.6682180439322347
+      ],
+      "false_review_rate": 0.125,
+      "false_review_rate_ci95": [
+        0.04344255039315584,
+        0.3100428814785757
+      ],
+      "precision_review": 0.7,
+      "auto_approved_clean": 21,
+      "confusion": {
+        "tp": 7,
+        "fn": 9,
+        "fp": 3,
+        "tn": 21
+      },
+      "anomaly_caught_with_right_reason": {
+        "line_sum_mismatch": {
+          "hit": 0,
+          "n": 2
+        },
+        "vat_miscalculated": {
+          "hit": 0,
+          "n": 2
+        },
+        "total_mismatch": {
+          "hit": 0,
+          "n": 2
+        },
+        "due_before_issue": {
+          "hit": 2,
+          "n": 2
+        },
+        "invalid_iban": {
+          "hit": 0,
+          "n": 2
+        },
+        "unknown_vendor": {
+          "hit": 0,
+          "n": 2
+        },
+        "bank_account_changed": {
+          "hit": 1,
+          "n": 2
+        },
+        "duplicate_invoice": {
+          "hit": 0,
+          "n": 2
+        }
+      },
+      "tokens_in": 187540,
+      "tokens_out": 12548,
+      "cost_usd": 0.0950928,
+      "cost_per_doc_usd": 0.00237732,
+      "llm_calls_per_doc": 1.0,
+      "latency_mean_s": 2.600249863404315,
+      "latency_p95_s": 3.649952103034593
+    },
+    "agent": {
+      "system": "agent",
+      "n_docs": 40,
+      "run_errors": 0,
+      "field_accuracy": {
+        "document_type": 1.0,
+        "invoice_number": 1.0,
+        "invoice_date": 1.0,
+        "due_date": 1.0,
+        "currency": 1.0,
+        "seller_name": 1.0,
+        "seller_vat_id": 1.0,
+        "buyer_name": 1.0,
+        "po_number": 1.0,
+        "iban": 1.0,
+        "subtotal": 1.0,
+        "tax_total": 1.0,
+        "total": 1.0,
+        "line_items": 1.0,
+        "tax_lines": 1.0
+      },
+      "doc_exact_match": 1.0,
+      "doc_exact_match_ci95": [
+        0.9123754607496077,
+        1.0
+      ],
+      "routing_accuracy": 1.0,
+      "routing_accuracy_ci95": [
+        0.9123754607496077,
+        1.0
+      ],
+      "anomaly_recall": 1.0,
+      "anomaly_recall_ci95": [
+        0.8063865817272802,
+        1.0
+      ],
+      "false_review_rate": 0.0,
+      "false_review_rate_ci95": [
+        0.0,
+        0.13798057582897535
+      ],
+      "precision_review": 1.0,
+      "auto_approved_clean": 24,
+      "confusion": {
+        "tp": 16,
+        "fn": 0,
+        "fp": 0,
+        "tn": 24
+      },
+      "anomaly_caught_with_right_reason": {
+        "line_sum_mismatch": {
+          "hit": 2,
+          "n": 2
+        },
+        "vat_miscalculated": {
+          "hit": 2,
+          "n": 2
+        },
+        "total_mismatch": {
+          "hit": 2,
+          "n": 2
+        },
+        "due_before_issue": {
+          "hit": 2,
+          "n": 2
+        },
+        "invalid_iban": {
+          "hit": 2,
+          "n": 2
+        },
+        "unknown_vendor": {
+          "hit": 2,
+          "n": 2
+        },
+        "bank_account_changed": {
+          "hit": 2,
+          "n": 2
+        },
+        "duplicate_invoice": {
+          "hit": 2,
+          "n": 2
+        }
+      },
+      "tokens_in": 69130,
+      "tokens_out": 13534,
+      "cost_usd": 0.0493064,
+      "cost_per_doc_usd": 0.00123266,
+      "llm_calls_per_doc": 1.2,
+      "latency_mean_s": 2.7656090713498998,
+      "latency_p95_s": 5.347039092972409
+    },
+    "agent_no_repair": {
+      "system": "agent_no_repair",
+      "n_docs": 40,
+      "run_errors": 0,
+      "field_accuracy": {
+        "document_type": 1.0,
+        "invoice_number": 1.0,
+        "invoice_date": 1.0,
+        "due_date": 1.0,
+        "currency": 1.0,
+        "seller_name": 1.0,
+        "seller_vat_id": 1.0,
+        "buyer_name": 1.0,
+        "po_number": 1.0,
+        "iban": 1.0,
+        "subtotal": 1.0,
+        "tax_total": 1.0,
+        "total": 1.0,
+        "line_items": 1.0,
+        "tax_lines": 1.0
+      },
+      "doc_exact_match": 1.0,
+      "doc_exact_match_ci95": [
+        0.9123754607496077,
+        1.0
+      ],
+      "routing_accuracy": 1.0,
+      "routing_accuracy_ci95": [
+        0.9123754607496077,
+        1.0
+      ],
+      "anomaly_recall": 1.0,
+      "anomaly_recall_ci95": [
+        0.8063865817272802,
+        1.0
+      ],
+      "false_review_rate": 0.0,
+      "false_review_rate_ci95": [
+        0.0,
+        0.13798057582897535
+      ],
+      "precision_review": 1.0,
+      "auto_approved_clean": 24,
+      "confusion": {
+        "tp": 16,
+        "fn": 0,
+        "fp": 0,
+        "tn": 24
+      },
+      "anomaly_caught_with_right_reason": {
+        "line_sum_mismatch": {
+          "hit": 2,
+          "n": 2
+        },
+        "vat_miscalculated": {
+          "hit": 2,
+          "n": 2
+        },
+        "total_mismatch": {
+          "hit": 2,
+          "n": 2
+        },
+        "due_before_issue": {
+          "hit": 2,
+          "n": 2
+        },
+        "invalid_iban": {
+          "hit": 2,
+          "n": 2
+        },
+        "unknown_vendor": {
+          "hit": 2,
+          "n": 2
+        },
+        "bank_account_changed": {
+          "hit": 2,
+          "n": 2
+        },
+        "duplicate_invoice": {
+          "hit": 2,
+          "n": 2
+        }
+      },
+      "tokens_in": 54500,
+      "tokens_out": 11435,
+      "cost_usd": 0.040096,
+      "cost_per_doc_usd": 0.0010024,
+      "llm_calls_per_doc": 1.0,
+      "latency_mean_s": null,
+      "latency_p95_s": null
+    }
+  },
+  "paired_tests": {
+    "agent_vs_baseline_routing": {
+      "only_a": 12,
+      "only_b": 0,
+      "p_value": 0.00048828125
+    },
+    "agent_vs_baseline_doc_exact": {
+      "only_a": 3,
+      "only_b": 0,
+      "p_value": 0.25
+    },
+    "agent_vs_agent_no_repair_routing": {
+      "only_a": 0,
+      "only_b": 0,
+      "p_value": 1.0
+    },
+    "agent_vs_agent_no_repair_doc_exact": {
+      "only_a": 0,
+      "only_b": 0,
+      "p_value": 1.0
+    }
+  }
+}

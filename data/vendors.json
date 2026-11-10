@@ -1,0 +1,212 @@
+[
+  {
+    "vendor_id": "V001",
+    "name": "Brightwater Office Supplies Ltd",
+    "country": "GB",
+    "currency": "GBP",
+    "vat_id": "GB114170753",
+    "iban": "GB64LTTX13998698797309",
+    "bic": "NJMMGBNT",
+    "address": [
+      "14 Wharf Road",
+      "Bristol BS1 4RN",
+      "United Kingdom"
+    ]
+  },
+  {
+    "vendor_id": "V002",
+    "name": "Halcyon Data Centres Ltd",
+    "country": "GB",
+    "currency": "GBP",
+    "vat_id": "GB716897684",
+    "iban": "GB46CUUK47294055761698",
+    "bic": "PVSTGBTA",
+    "address": [
+      "7 Mill Lane",
+      "Leeds LS2 7DT",
+      "United Kingdom"
+    ]
+  },
+  {
+    "vendor_id": "V003",
+    "name": "Merrow & Finch Consulting LLP",
+    "country": "GB",
+    "currency": "GBP",
+    "vat_id": "GB488766344",
+    "iban": "GB56BZTY19672731778486",
+    "bic": "ABEXGBWR",
+    "address": [
+      "14 Wharf Road",
+      "Bristol BS1 4RN",
+      "United Kingdom"
+    ]
+  },
+  {
+    "vendor_id": "V004",
+    "name": "Cobalt Harbour Hosting Ltd",
+    "country": "IE",
+    "currency": "EUR",
+    "vat_id": "IE2671475B",
+    "iban": "IE85GJZS78768045717847",
+    "bic": "GPERIEAC",
+    "address": [
+      "4 Quay Street",
+      "Galway H91 F2K3",
+      "Ireland"
+    ]
+  },
+  {
+    "vendor_id": "V005",
+    "name": "Liffey Translation Services Ltd",
+    "country": "IE",
+    "currency": "EUR",
+    "vat_id": "IE7929841G",
+    "iban": "IE63WGHD90845205997283",
+    "bic": "YFEVIEKT",
+    "address": [
+      "21 Dock Street",
+      "Dublin 2, D02 X285",
+      "Ireland"
+    ]
+  },
+  {
+    "vendor_id": "V006",
+    "name": "Atelier Lumen SARL",
+    "country": "FR",
+    "currency": "EUR",
+    "vat_id": "FR22983695793",
+    "iban": "FR5283601610550087547517799",
+    "bic": "YZCUFRNB",
+    "address": [
+      "12 rue des Tanneurs",
+      "69002 Lyon",
+      "France"
+    ]
+  },
+  {
+    "vendor_id": "V007",
+    "name": "Transports Garonne SAS",
+    "country": "FR",
+    "currency": "EUR",
+    "vat_id": "FR52477647258",
+    "iban": "FR3108073702838222646861642",
+    "bic": "SRDTFRTJ",
+    "address": [
+      "12 rue des Tanneurs",
+      "69002 Lyon",
+      "France"
+    ]
+  },
+  {
+    "vendor_id": "V008",
+    "name": "Boulangerie Collective Traiteur SARL",
+    "country": "FR",
+    "currency": "EUR",
+    "vat_id": "FR94821416210",
+    "iban": "FR1101756820525898319489394",
+    "bic": "MFXXFRDT",
+    "address": [
+      "12 rue des Tanneurs",
+      "69002 Lyon",
+      "France"
+    ]
+  },
+  {
+    "vendor_id": "V009",
+    "name": "Nordhafen Logistik GmbH",
+    "country": "DE",
+    "currency": "EUR",
+    "vat_id": "DE189557990",
+    "iban": "DE97145244106460013041",
+    "bic": "NLWGDEWR",
+    "address": [
+      "Ostring 140",
+      "04103 Leipzig",
+      "Germany"
+    ]
+  },
+  {
+    "vendor_id": "V010",
+    "name": "Brandt & Kessel IT-Service GmbH",
+    "country": "DE",
+    "currency": "EUR",
+    "vat_id": "DE853801291",
+    "iban": "DE25584645060454146590",
+    "bic": "DBETDEMW",
+    "address": [
+      "Hafenstraße 31",
+      "20457 Hamburg",
+      "Germany"
+    ]
+  },
+  {
+    "vendor_id": "V011",
+    "name": "Weißdorn Beratung GmbH",
+    "country": "DE",
+    "currency": "EUR",
+    "vat_id": "DE300487645",
+    "iban": "DE47925666363228088642",
+    "bic": "EXVCDEFU",
+    "address": [
+      "Lindenallee 9",
+      "50968 Köln",
+      "Germany"
+    ]
+  },
+  {
+    "vendor_id": "V012",
+    "name": "Grachtwerk Design B.V.",
+    "country": "NL",
+    "currency": "EUR",
+    "vat_id": "NL384535577B03",
+    "iban": "NL77LXTL0037038265",
+    "bic": "SYVKNLGF",
+    "address": [
+      "Marktstraat 5",
+      "2611 GS Delft",
+      "Netherlands"
+    ]
+  },
+  {
+    "vendor_id": "V013",
+    "name": "Delftse Kantoorartikelen B.V.",
+    "country": "NL",
+    "currency": "EUR",
+    "vat_id": "NL083949066B03",
+    "iban": "NL76AMTZ6021458421",
+    "bic": "TXYFNLTD",
+    "address": [
+      "Marktstraat 5",
+      "2611 GS Delft",
+      "Netherlands"
+    ]
+  },
+  {
+    "vendor_id": "V014",
+    "name": "Pinecrest Software Inc.",
+    "country": "US",
+    "currency": "USD",
+    "vat_id": "58-4409324",
+    "iban": null,
+    "bic": null,
+    "address": [
+      "1200 Elm Avenue",
+      "Austin, TX 78701",
+      "United States"
+    ]
+  },
+  {
+    "vendor_id": "V015",
+    "name": "Redwood Analytics LLC",
+    "country": "US",
+    "currency": "USD",
+    "vat_id": "52-6309765",
+    "iban": null,
+    "bic": null,
+    "address": [
+      "1200 Elm Avenue",
+      "Austin, TX 78701",
+      "United States"
+    ]
+  }
+]

@@ -1,0 +1,346 @@
+[
+  {
+    "vendor_id": "V001",
+    "invoice_number": "BOSI-2025-1691",
+    "invoice_date": "2025-05-07",
+    "currency": "GBP",
+    "total": 3578.57,
+    "status": "posted"
+  },
+  {
+    "vendor_id": "V001",
+    "invoice_number": "BOSI-2025-3090",
+    "invoice_date": "2025-12-12",
+    "currency": "GBP",
+    "total": 8152.59,
+    "status": "posted"
+  },
+  {
+    "vendor_id": "V001",
+    "invoice_number": "BOSI-2025-6398",
+    "invoice_date": "2025-09-03",
+    "currency": "GBP",
+    "total": 2188.98,
+    "status": "posted"
+  },
+  {
+    "vendor_id": "V002",
+    "invoice_number": "HDC-02040",
+    "invoice_date": "2025-12-05",
+    "currency": "GBP",
+    "total": 5313.98,
+    "status": "posted"
+  },
+  {
+    "vendor_id": "V002",
+    "invoice_number": "HDC-04062",
+    "invoice_date": "2025-11-01",
+    "currency": "GBP",
+    "total": 8144.54,
+    "status": "posted"
+  },
+  {
+    "vendor_id": "V002",
+    "invoice_number": "HDC-01789",
+    "invoice_date": "2025-08-08",
+    "currency": "GBP",
+    "total": 6579.83,
+    "status": "posted"
+  },
+  {
+    "vendor_id": "V002",
+    "invoice_number": "HDC-03636",
+    "invoice_date": "2025-03-31",
+    "currency": "GBP",
+    "total": 8390.82,
+    "status": "posted"
+  },
+  {
+    "vendor_id": "V003",
+    "invoice_number": "RE-06477",
+    "invoice_date": "2025-09-09",
+    "currency": "GBP",
+    "total": 3316.92,
+    "status": "posted"
+  },
+  {
+    "vendor_id": "V003",
+    "invoice_number": "RE-02045",
+    "invoice_date": "2025-05-18",
+    "currency": "GBP",
+    "total": 8672.37,
+    "status": "posted"
+  },
+  {
+    "vendor_id": "V003",
+    "invoice_number": "RE-01597",
+    "invoice_date": "2025-04-26",
+    "currency": "GBP",
+    "total": 1694.7,
+    "status": "posted"
+  },
+  {
+    "vendor_id": "V004",
+    "invoice_number": "RE-2025-4179",
+    "invoice_date": "2025-12-11",
+    "currency": "EUR",
+    "total": 8021.1,
+    "status": "posted"
+  },
+  {
+    "vendor_id": "V004",
+    "invoice_number": "RE-2025-3605",
+    "invoice_date": "2025-09-02",
+    "currency": "EUR",
+    "total": 8384.42,
+    "status": "posted"
+  },
+  {
+    "vendor_id": "V005",
+    "invoice_number": "0002698",
+    "invoice_date": "2025-11-18",
+    "currency": "EUR",
+    "total": 8293.05,
+    "status": "posted"
+  },
+  {
+    "vendor_id": "V005",
+    "invoice_number": "0007836",
+    "invoice_date": "2025-04-21",
+    "currency": "EUR",
+    "total": 6494.41,
+    "status": "posted"
+  },
+  {
+    "vendor_id": "V005",
+    "invoice_number": "0006511",
+    "invoice_date": "2025-07-30",
+    "currency": "EUR",
+    "total": 3064.04,
+    "status": "posted"
+  },
+  {
+    "vendor_id": "V006",
+    "invoice_number": "ALSI004807",
+    "invoice_date": "2025-05-31",
+    "currency": "EUR",
+    "total": 2810.11,
+    "status": "posted"
+  },
+  {
+    "vendor_id": "V006",
+    "invoice_number": "ALSI001010",
+    "invoice_date": "2025-10-28",
+    "currency": "EUR",
+    "total": 4620.51,
+    "status": "posted"
+  },
+  {
+    "vendor_id": "V007",
+    "invoice_number": "TGS-2025-7471",
+    "invoice_date": "2025-03-18",
+    "currency": "EUR",
+    "total": 7363.31,
+    "status": "posted"
+  },
+  {
+    "vendor_id": "V007",
+    "invoice_number": "TGS-2025-1894",
+    "invoice_date": "2025-03-26",
+    "currency": "EUR",
+    "total": 2049.62,
+    "status": "posted"
+  },
+  {
+    "vendor_id": "V008",
+    "invoice_number": "F/2025/07582",
+    "invoice_date": "2025-07-25",
+    "currency": "EUR",
+    "total": 1980.18,
+    "status": "posted"
+  },
+  {
+    "vendor_id": "V008",
+    "invoice_number": "F/2025/00322",
+    "invoice_date": "2025-09-08",
+    "currency": "EUR",
+    "total": 4748.82,
+    "status": "posted"
+  },
+  {
+    "vendor_id": "V008",
+    "invoice_number": "F/2025/07147",
+    "invoice_date": "2025-09-21",
+    "currency": "EUR",
+    "total": 5637.26,
+    "status": "posted"
+  },
+  {
+    "vendor_id": "V008",
+    "invoice_number": "F/2025/07158",
+    "invoice_date": "2025-08-12",
+    "currency": "EUR",
+    "total": 3629.2,
+    "status": "posted"
+  },
+  {
+    "vendor_id": "V009",
+    "invoice_number": "0003301",
+    "invoice_date": "2025-09-16",
+    "currency": "EUR",
+    "total": 3787.34,
+    "status": "posted"
+  },
+  {
+    "vendor_id": "V009",
+    "invoice_number": "0005117",
+    "invoice_date": "2025-05-04",
+    "currency": "EUR",
+    "total": 2820.45,
+    "status": "posted"
+  },
+  {
+    "vendor_id": "V009",
+    "invoice_number": "0003736",
+    "invoice_date": "2025-07-05",
+    "currency": "EUR",
+    "total": 8731.41,
+    "status": "posted"
+  },
+  {
+    "vendor_id": "V010",
+    "invoice_number": "INV/2025/01748",
+    "invoice_date": "2025-12-17",
+    "currency": "EUR",
+    "total": 8187.67,
+    "status": "posted"
+  },
+  {
+    "vendor_id": "V010",
+    "invoice_number": "INV/2025/09297",
+    "invoice_date": "2025-06-14",
+    "currency": "EUR",
+    "total": 5962.38,
+    "status": "posted"
+  },
+  {
+    "vendor_id": "V010",
+    "invoice_number": "INV/2025/06615",
+    "invoice_date": "2025-03-05",
+    "currency": "EUR",
+    "total": 995.62,
+    "status": "posted"
+  },
+  {
+    "vendor_id": "V010",
+    "invoice_number": "INV/2025/02550",
+    "invoice_date": "2025-03-21",
+    "currency": "EUR",
+    "total": 4929.33,
+    "status": "posted"
+  },
+  {
+    "vendor_id": "V011",
+    "invoice_number": "WBGI-2025-3915",
+    "invoice_date": "2025-06-05",
+    "currency": "EUR",
+    "total": 5721.19,
+    "status": "posted"
+  },
+  {
+    "vendor_id": "V011",
+    "invoice_number": "WBGI-2025-7673",
+    "invoice_date": "2025-09-23",
+    "currency": "EUR",
+    "total": 8149.42,
+    "status": "posted"
+  },
+  {
+    "vendor_id": "V011",
+    "invoice_number": "WBGI-2025-8624",
+    "invoice_date": "2025-06-11",
+    "currency": "EUR",
+    "total": 6667.27,
+    "status": "posted"
+  },
+  {
+    "vendor_id": "V011",
+    "invoice_number": "WBGI-2025-8512",
+    "invoice_date": "2025-12-11",
+    "currency": "EUR",
+    "total": 2522.78,
+    "status": "posted"
+  },
+  {
+    "vendor_id": "V012",
+    "invoice_number": "0003966",
+    "invoice_date": "2025-11-07",
+    "currency": "EUR",
+    "total": 7967.29,
+    "status": "posted"
+  },
+  {
+    "vendor_id": "V012",
+    "invoice_number": "0004687",
+    "invoice_date": "2025-09-19",
+    "currency": "EUR",
+    "total": 1432.02,
+    "status": "posted"
+  },
+  {
+    "vendor_id": "V013",
+    "invoice_number": "DKB-2025-2503",
+    "invoice_date": "2025-08-07",
+    "currency": "EUR",
+    "total": 8775.09,
+    "status": "posted"
+  },
+  {
+    "vendor_id": "V013",
+    "invoice_number": "DKB-2025-8697",
+    "invoice_date": "2025-08-15",
+    "currency": "EUR",
+    "total": 3665.05,
+    "status": "posted"
+  },
+  {
+    "vendor_id": "V014",
+    "invoice_number": "BILL/2025/02234",
+    "invoice_date": "2025-06-02",
+    "currency": "USD",
+    "total": 6137.53,
+    "status": "posted"
+  },
+  {
+    "vendor_id": "V014",
+    "invoice_number": "BILL/2025/07141",
+    "invoice_date": "2025-04-16",
+    "currency": "USD",
+    "total": 8339.51,
+    "status": "posted"
+  },
+  {
+    "vendor_id": "V014",
+    "invoice_number": "BILL/2025/01971",
+    "invoice_date": "2025-09-04",
+    "currency": "USD",
+    "total": 7982.97,
+    "status": "posted"
+  },
+  {
+    "vendor_id": "V015",
+    "invoice_number": "RAL-00306",
+    "invoice_date": "2025-07-29",
+    "currency": "USD",
+    "total": 5815.03,
+    "status": "posted"
+  },
+  {
+    "vendor_id": "V015",
+    "invoice_number": "RAL-01090",
+    "invoice_date": "2025-06-11",
+    "currency": "USD",
+    "total": 1588.73,
+    "status": "posted"
+  }
+]
