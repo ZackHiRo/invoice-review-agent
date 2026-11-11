@@ -1,0 +1,59 @@
+# One-off comparison: pypdf vs Docling text extraction on the eval invoices.
+# Runs on push to the docling-test branch only. No secrets, no API calls: both tools run locally on the runner.
+name: docling-test
+
+on:
+  push:
+    branches: [docling-test]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  compare:
+    runs-on: ubuntu-latest
+    timeout-minutes: 150
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - set: dev
+            pdfs: data/dev/*.pdf
+            labels: data/dev/labels.jsonl
+            kind: synthetic
+          - set: test
+            pdfs: data/test/*.pdf
+            labels: data/test/labels.jsonl
+            kind: synthetic
+          - set: confbench
+            pdfs: data/real/confbench/*.pdf
+            labels: data/real/confbench/labels.jsonl
+            kind: real
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+      - name: Install
+        run: |
+          pip install -e ".[real]"
+          pip install docling pypdf
+          python -c "import importlib.metadata as m; print({p: m.version(p) for p in ('docling','docling-parse','docling-core','pypdf','torch')})" | tee versions.txt
+      - name: Fetch ConfBench (75 FCC invoices, CC BY-NC 4.0)
+        if: matrix.set == 'confbench'
+        run: invoice-agent fetch-confbench
+      - name: Extract with pypdf and Docling
+        run: python scripts/docling_test/extract.py out/${{ matrix.set }} ${{ matrix.pdfs }}
+      - name: Score
+        run: |
+          python scripts/docling_test/score.py out/${{ matrix.set }} ${{ matrix.labels }} ${{ matrix.kind }} | tee out/${{ matrix.set }}/report.md
+          { echo "## ${{ matrix.set }}"; echo; echo '```'; cat versions.txt; echo '```'; cat out/${{ matrix.set }}/report.md; } >> "$GITHUB_STEP_SUMMARY"
+          cp versions.txt out/${{ matrix.set }}/
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: docling-test-${{ matrix.set }}
+          path: out/${{ matrix.set }}
+          retention-days: 7
